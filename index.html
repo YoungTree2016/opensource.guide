@@ -2,3 +2,18 @@
 layout: index
 lang: en
 ---
+
+Bug Report (20200619):
+It can not support file with relative folder. 
+after tracking, found that: in the source code of zip.c Line821, 
+     if (!mz_zip_writer_add_file(&zip_archive, base_name(name), name, "", 0,    ......
+the second paramater should be replace with the relative path filename, e.g.,  temp\\work.doc
+and the third parameter should be replace with the absolute path name. e.g., c:\\mydoc\\temp\\work.doc
+
+for such a folder structure:
+              c:\\mydoc\\readme.txt
+              c:\\mydoc\\temp\\work.doc
+if I want to compress all files(include subfolder) in the folder c:\\mydoc, just transfer the relative pathname
+                  readme.txt
+                  temp\\work.doc
+
